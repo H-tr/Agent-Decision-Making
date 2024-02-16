@@ -3,6 +3,7 @@ from src.gridworld import Gridworld
 from src.value_iteration import value_iteration
 from src.policy_iteration import policy_iteration
 
+
 class TestMazeSolver(unittest.TestCase):
     def setUp(self):
         self.size = (4, 4)
@@ -22,5 +23,6 @@ class TestMazeSolver(unittest.TestCase):
         self.assertEqual(V.shape, self.size)
         # Add more assertions to check the correctness of the policy and utilities
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
