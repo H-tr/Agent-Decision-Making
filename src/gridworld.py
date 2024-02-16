@@ -1,5 +1,3 @@
-
-
 class Gridworld:
     def __init__(
         self, size, walls, terminal_states, rewards, transition_prob=1.0, discount=0.9
