@@ -9,7 +9,7 @@ class Gridworld:
         terminal_states: List[Tuple[int, int]],
         rewards: Dict[Tuple[int, int], float],
         transition_prob: float = 1.0,
-        discount: float = 0.9,
+        discount: float = 0.99,
     ):
         """
         Initialize the Gridworld environment.
