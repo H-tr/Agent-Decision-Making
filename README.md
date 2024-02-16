@@ -1,3 +1,4 @@
+![logo](asset/logo.webp)
 # Maze Solver: Intelligent Agents Assignment 1
 
 ## Overview

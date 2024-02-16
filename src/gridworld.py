@@ -8,7 +8,7 @@ class Gridworld:
         walls: List[Tuple[int, int]],
         terminal_states: List[Tuple[int, int]],
         rewards: Dict[Tuple[int, int], float],
-        transition_prob: float = 1.0,
+        transition_prob: float = 0.8,
         discount: float = 0.99,
     ):
         """
@@ -19,8 +19,8 @@ class Gridworld:
         - walls: List[Tuple[int, int]] - A list of coordinates representing wall positions.
         - terminal_states: List[Tuple[int, int]] - A list of coordinates representing terminal states.
         - rewards: Dict[Tuple[int, int], float] - A dictionary mapping state coordinates to rewards.
-        - transition_prob: float (default 1.0) - The probability of successfully moving in the intended direction.
-        - discount: float (default 0.9) - The discount factor for future rewards.
+        - transition_prob: float (default 0.8) - The probability of successfully moving in the intended direction.
+        - discount: float (default 0.99) - The discount factor for future rewards.
         """
         self.size = size
         self.walls = walls
