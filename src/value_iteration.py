@@ -1,7 +1,18 @@
 import numpy as np
+from .gridworld import Gridworld
 
 
-def value_iteration(env, threshold=0.001):
+def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
+    """
+    Perform value iteration to find the optimal utilities.
+
+    Parameters:
+    - env: Gridworld - The gridworld environment.
+    - threshold: float (default 0.001) - The threshold for convergence.
+
+    Returns:
+    - np.ndarray - The utilities of all states after convergence.
+    """
     V = np.zeros(env.size)
     while True:
         delta = 0

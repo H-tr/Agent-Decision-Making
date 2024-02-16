@@ -26,6 +26,11 @@ conda activate maze_solver
 pip install -r requirements.txt
 ```
 
+2. Run the main logic
+```
+python main.py
+```
+
 ## Project Structure
 
 ## Contributing

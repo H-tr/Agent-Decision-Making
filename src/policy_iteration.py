@@ -1,13 +1,25 @@
 import numpy as np
+from .gridworld import Gridworld
+from typing import Tuple
 
 
-def policy_iteration(env, threshold=0.001):
-    # Initialize policy as an empty array with dtype=object
+def policy_iteration(
+    env: Gridworld, threshold: float = 0.001
+) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Perform policy iteration to find the optimal policy and utilities.
+
+    Parameters:
+    - env: Gridworld - The gridworld environment.
+    - threshold: float (default 0.001) - The threshold for convergence.
+
+    Returns:
+    - Tuple[np.ndarray, np.ndarray] - A tuple containing the optimal policy and the utilities of all states.
+    """
     policy = np.empty(env.size, dtype=object)
-    # Fill the policy array with the default action (0, 1)
     for i in range(env.size[0]):
         for j in range(env.size[1]):
-            policy[i, j] = (0, 1)
+            policy[i, j] = (0, 1)  # Initialize with a default action
     V = np.zeros(env.size)
     while True:
         # Policy evaluation
