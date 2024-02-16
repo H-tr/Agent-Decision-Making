@@ -31,6 +31,11 @@ pip install -r requirements.txt
 python main.py
 ```
 
+3. Test
+```
+python -m unittest tests.test_maze_solver
+```
+
 ## Project Structure
 
 ## Contributing
