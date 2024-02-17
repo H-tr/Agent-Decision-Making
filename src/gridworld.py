@@ -1,4 +1,3 @@
-import random
 from typing import List, Tuple, Dict
 
 
@@ -44,68 +43,68 @@ class Gridworld:
         - bool - True if the state is terminal, False otherwise.
         """
         return state in self.terminal_states
-
-    @property
-    def get_random_output(self):
-        return random.choices(
-            ["intend", "right", "left"],
-            weights=[
-                self.transition_prob,
-                (1 - self.transition_prob) / 2,
-                (1 - self.transition_prob) / 2,
-            ],
-            k=1,
-        )[0]
-
-    def go_intended(self, action: Tuple[int, int]) -> Tuple[int, int]:
+    
+    def rotate_action(self, action: Tuple[int, int], direction: int) -> Tuple[int, int]:
         """
-        Get the coordinates of the next state if the action is successful.
+        Rotate an action 90 degrees left or right.
 
         Parameters:
-        - action: Tuple[int, int] - The action to be taken (delta row, delta column).
+        - action: Tuple[int, int] - The original action (dx, dy).
+        - direction: int - The direction to rotate the action. -1 for left, 1 for right.
 
         Returns:
-        - Tuple[int, int] - The coordinates of the next state.
+        - Tuple[int, int] - The rotated action.
         """
-        return action
+        # Mapping of actions to their left/right rotations
+        # Action format is (dx, dy)
+        action_rotations = {
+            (0, 1): {  # Right
+                -1: (-1, 0),  # Rotate left to Up
+                1: (1, 0),    # Rotate right to Down
+            },
+            (1, 0): {  # Down
+                -1: (0, 1),   # Rotate left to Right
+                1: (0, -1),   # Rotate right to Left
+            },
+            (0, -1): { # Left
+                -1: (1, 0),   # Rotate left to Down
+                1: (-1, 0),   # Rotate right to Up
+            },
+            (-1, 0): { # Up
+                -1: (0, -1),  # Rotate left to Left
+                1: (0, 1),    # Rotate right to Right
+            }
+        }
 
-    def go_right(self, action: Tuple[int, int]) -> Tuple[int, int]:
-        """
-        Get the coordinates of the next state if the action is to the right.
+        return action_rotations[action][direction]
 
-        Parameters:
-        - action: Tuple[int, int] - The action to be taken (delta row, delta column).
 
-        Returns:
-        - Tuple[int, int] - The coordinates of the next state.
-        """
-        if action == (0, 1):
-            return (1, 0)
-        elif action == (1, 0):
-            return (0, -1)
-        elif action == (0, -1):
-            return (-1, 0)
-        elif action == (-1, 0):
-            return (0, 1)
+    def get_transition_states_and_probs(
+        self, state: Tuple[int, int], action: Tuple[int, int]
+    ) -> List[Tuple[Tuple[int, int], float]]:
+        """Given a state and an action, return a list of (next_state, probability) pairs."""
+        if state in self.terminal_states:
+            return [(state, 1.0)]
 
-    def go_left(self, action: Tuple[int, int]) -> Tuple[int, int]:
-        """
-        Get the coordinates of the next state if the action is to the left.
+        forward = self.get_next_state(state, action)
+        left = self.get_next_state(state, self.rotate_action(action, -1))
+        right = self.get_next_state(state, self.rotate_action(action, 1))
 
-        Parameters:
-        - action: Tuple[int, int] - The action to be taken (delta row, delta column).
+        # Staying in the current state if all moves lead to walls or out of bounds
+        if forward == state and left == state and right == state:
+            return [(state, 1.0)]
 
-        Returns:
-        - Tuple[int, int] - The coordinates of the next state.
-        """
-        if action == (0, 1):
-            return (-1, 0)
-        elif action == (1, 0):
-            return (0, 1)
-        elif action == (0, -1):
-            return (1, 0)
-        elif action == (-1, 0):
-            return (0, -1)
+        transitions = [(forward, self.transition_prob), (left, 0.1), (right, 0.1)]
+
+        # Removing duplicates if any (e.g., when left and right result in the same state)
+        results = {}
+        for next_state, prob in transitions:
+            if next_state in results:
+                results[next_state] += prob
+            else:
+                results[next_state] = prob
+
+        return list(results.items())
 
     def get_next_state(
         self, state: Tuple[int, int], action: Tuple[int, int]
@@ -120,14 +119,7 @@ class Gridworld:
         Returns:
         - Tuple[int, int] - The coordinates of the next state.
         """
-        outcome = self.get_random_output
-        if outcome == "intend":
-            real_action = self.go_intended(action)
-        elif outcome == "right":
-            real_action = self.go_right(action)
-        elif outcome == "left":
-            real_action = self.go_left(action)
-        next_state = (state[0] + real_action[0], state[1] + real_action[1])
+        next_state = (state[0] + action[0], state[1] + action[1])
         if (
             next_state in self.walls
             or next_state[0] < 0

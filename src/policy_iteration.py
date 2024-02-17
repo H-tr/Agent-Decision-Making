@@ -33,14 +33,16 @@ def policy_iteration(
                     if (i, j) in env.walls or (i, j) in env.terminal_states:
                         continue
                     v = V[i, j]
-                    next_state = env.get_next_state((i, j), policy[i, j])
-                    V[i, j] = (
-                        env.get_reward(
-                            (i, j),
-                            policy[i, j],
-                            next_state,
+                    action = policy[i, j]
+                    V[i, j] = sum(
+                        prob
+                        * (
+                            env.get_reward((i, j), action, next_state)
+                            + env.discount * V[next_state]
                         )
-                        + env.discount * V[next_state]
+                        for next_state, prob in env.get_transition_states_and_probs(
+                            (i, j), action
+                        )
                     )
                     delta = max(delta, abs(v - V[i, j]))
 
@@ -48,21 +50,29 @@ def policy_iteration(
             if delta < threshold:
                 break
 
-        # Policy improvement
+        # Policy Improvement
         policy_stable = True
         for i in range(env.size[0]):
             for j in range(env.size[1]):
-                if (i, j) in env.walls or (i, j) in env.terminal_states:
+                if (i, j) in env.terminal_states:
                     continue
                 old_action = policy[i, j]
-                policy[i, j] = max(
-                    env.actions,
-                    key=lambda a: env.get_reward(
-                        (i, j), a, env.get_next_state((i, j), a)
+                action_values = []
+                for action in env.actions:
+                    action_value = sum(
+                        prob
+                        * (
+                            env.get_reward((i, j), action, next_state)
+                            + env.discount * V[next_state]
+                        )
+                        for next_state, prob in env.get_transition_states_and_probs(
+                            (i, j), action
+                        )
                     )
-                    + env.discount * V[env.get_next_state((i, j), a)],
-                )
-                if old_action != policy[i, j]:
+                    action_values.append(action_value)
+                best_action = env.actions[np.argmax(action_values)]
+                policy[i, j] = best_action
+                if old_action != best_action:
                     policy_stable = False
 
         writer.add_scalar("Policy Iteration Utilities", V.mean(), iteration)

@@ -26,9 +26,17 @@ def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
                 v = V[i, j]
                 V[i, j] = max(
                     [
-                        env.get_reward((i, j), a, env.get_next_state((i, j), a))
-                        + env.discount * V[env.get_next_state((i, j), a)]
-                        for a in env.actions
+                        sum(
+                            prob
+                            * (
+                                env.get_reward((i, j), action, next_state)
+                                + env.discount * V[next_state]
+                            )
+                            for next_state, prob in env.get_transition_states_and_probs(
+                                (i, j), action
+                            )
+                        )
+                        for action in env.actions
                     ]
                 )
                 delta = max(delta, abs(v - V[i, j]))
