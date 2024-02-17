@@ -8,6 +8,10 @@
 
 This project is the first assignment for the SC4003-CE4046-CZ4046-INTELLIGENT AGENTS course. It involves implementing value iteration and policy iteration algorithms to solve a maze environment. The goal is to find the optimal policy and utilities for all non-wall states in the maze.
 
+## Result
+
+For the original maze
+
 ## Getting Started
 
 ### Installation
