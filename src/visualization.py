@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def visualize_gridworld(size, walls, rewards, policy):
     fig, ax = plt.subplots()
     # Initialize a matrix to represent the grid for coloring
@@ -24,7 +25,7 @@ def visualize_gridworld(size, walls, rewards, policy):
                     grid_color[y, x] = negative_reward_color
 
     # Create a color map image
-    ax.imshow(grid_color, interpolation='nearest')
+    ax.imshow(grid_color, interpolation="nearest")
 
     # Draw policy arrows
     for y in range(size[0]):
@@ -41,7 +42,16 @@ def visualize_gridworld(size, walls, rewards, policy):
                 dx, dy = -0.4, 0
             elif action == (-1, 0):  # Up
                 dx, dy = 0, -0.4
-            ax.arrow(x - dx / 2, y - dy / 2, dx, dy, head_width=0.1, head_length=0.1, fc='k', ec='k')
+            ax.arrow(
+                x - dx / 2,
+                y - dy / 2,
+                dx,
+                dy,
+                head_width=0.1,
+                head_length=0.1,
+                fc="k",
+                ec="k",
+            )
 
     # Remove axis markings for clarity
     ax.set_xticks([])
