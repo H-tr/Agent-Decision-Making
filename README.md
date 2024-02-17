@@ -8,9 +8,23 @@
 
 This project is the first assignment for the SC4003-CE4046-CZ4046-INTELLIGENT AGENTS course. It involves implementing value iteration and policy iteration algorithms to solve a maze environment. The goal is to find the optimal policy and utilities for all non-wall states in the maze.
 
-## Result
+## Results
 
-For the original maze
+The following section presents the results of the maze solver algorithm, showcasing the original maze configuration and the optimized policy obtained after running the algorithm.
+
+### Original Maze
+
+The original maze is set up with walls, positive rewards, and negative rewards as shown below:
+
+![Original Maze](asset/ori_maze.png)
+
+### Optimized Policy
+
+After running the maze solver algorithm, the optimized policy indicating the best actions at each state is visualized below:
+
+![Optimized Policy](asset/optimization_policy.png)
+
+The arrows represent the direction of the optimal action to take from each non-wall grid cell. Green cells indicate positive rewards, orange cells indicate negative rewards, and gray cells represent walls. The optimized policy provides a guide for an agent to maximize rewards and reach the goal state efficiently.
 
 ## Getting Started
 
