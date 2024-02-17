@@ -1,6 +1,7 @@
 import numpy as np
 from .gridworld import Gridworld
 from typing import Tuple
+from tensorboardX import SummaryWriter
 
 
 def policy_iteration(
@@ -16,11 +17,13 @@ def policy_iteration(
     Returns:
     - Tuple[np.ndarray, np.ndarray] - A tuple containing the optimal policy and the utilities of all states.
     """
+    writer = SummaryWriter("runs/maze_solver_experiment")
     policy = np.empty(env.size, dtype=object)
     for i in range(env.size[0]):
         for j in range(env.size[1]):
             policy[i, j] = (0, 1)  # Initialize with a default action
     V = np.zeros(env.size)
+    iteration = 0
     while True:
         # Policy evaluation
         while True:
@@ -39,6 +42,8 @@ def policy_iteration(
                         + env.discount * V[env.get_next_state((i, j), policy[i, j])]
                     )
                     delta = max(delta, abs(v - V[i, j]))
+                    
+            writer.add_scalar('Policy Iteration Delta', delta, iteration)
             if delta < threshold:
                 break
 
@@ -58,6 +63,9 @@ def policy_iteration(
                 )
                 if old_action != policy[i, j]:
                     policy_stable = False
+                    
+        writer.add_scalar('Policy Iteration Utilities', V.mean(), iteration)
         if policy_stable:
             break
+        iteration += 1
     return policy, V

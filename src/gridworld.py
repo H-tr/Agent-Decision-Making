@@ -1,3 +1,4 @@
+import random
 from typing import List, Tuple, Dict
 
 
@@ -41,6 +42,64 @@ class Gridworld:
         - bool - True if the state is terminal, False otherwise.
         """
         return state in self.terminal_states
+    
+    @property
+    def get_random_output(self):
+        return random.choices(
+            ['intend', 'right', 'left'],
+            weights=[self.transition_prob, (1-self.transition_prob)/2, (1-self.transition_prob)/2],
+            k=1
+        )[0]
+    
+    def go_intended(self, action: Tuple[int, int]) -> Tuple[int, int]:
+        """
+        Get the coordinates of the next state if the action is successful.
+
+        Parameters:
+        - action: Tuple[int, int] - The action to be taken (delta row, delta column).
+
+        Returns:
+        - Tuple[int, int] - The coordinates of the next state.
+        """
+        return action
+    
+    def go_right(self, action: Tuple[int, int]) -> Tuple[int, int]:
+        """
+        Get the coordinates of the next state if the action is to the right.
+
+        Parameters:
+        - action: Tuple[int, int] - The action to be taken (delta row, delta column).
+
+        Returns:
+        - Tuple[int, int] - The coordinates of the next state.
+        """
+        if action == (0, 1):
+            return (1, 0)
+        elif action == (1, 0):
+            return (0, -1)
+        elif action == (0, -1):
+            return (-1, 0)
+        elif action == (-1, 0):
+            return (0, 1)
+        
+    def go_left(self, action: Tuple[int, int]) -> Tuple[int, int]:
+        """
+        Get the coordinates of the next state if the action is to the left.
+
+        Parameters:
+        - action: Tuple[int, int] - The action to be taken (delta row, delta column).
+
+        Returns:
+        - Tuple[int, int] - The coordinates of the next state.
+        """
+        if action == (0, 1):
+            return (-1, 0)
+        elif action == (1, 0):
+            return (0, 1)
+        elif action == (0, -1):
+            return (1, 0)
+        elif action == (-1, 0):
+            return (0, -1)
 
     def get_next_state(
         self, state: Tuple[int, int], action: Tuple[int, int]
@@ -55,7 +114,14 @@ class Gridworld:
         Returns:
         - Tuple[int, int] - The coordinates of the next state.
         """
-        next_state = (state[0] + action[0], state[1] + action[1])
+        outcome = self.get_random_output
+        if outcome == 'intend':
+            real_action = self.go_intended(action)
+        elif outcome == 'right':
+            real_action = self.go_right(action)
+        elif outcome == 'left':
+            real_action = self.go_left(action)
+        next_state = (state[0] + real_action[0], state[1] + real_action[1])
         if (
             next_state in self.walls
             or next_state[0] < 0
