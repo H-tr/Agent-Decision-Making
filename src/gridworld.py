@@ -43,7 +43,7 @@ class Gridworld:
         - bool - True if the state is terminal, False otherwise.
         """
         return state in self.terminal_states
-    
+
     def rotate_action(self, action: Tuple[int, int], direction: int) -> Tuple[int, int]:
         """
         Rotate an action 90 degrees left or right.
@@ -60,24 +60,23 @@ class Gridworld:
         action_rotations = {
             (0, 1): {  # Right
                 -1: (-1, 0),  # Rotate left to Up
-                1: (1, 0),    # Rotate right to Down
+                1: (1, 0),  # Rotate right to Down
             },
             (1, 0): {  # Down
-                -1: (0, 1),   # Rotate left to Right
-                1: (0, -1),   # Rotate right to Left
+                -1: (0, 1),  # Rotate left to Right
+                1: (0, -1),  # Rotate right to Left
             },
-            (0, -1): { # Left
-                -1: (1, 0),   # Rotate left to Down
-                1: (-1, 0),   # Rotate right to Up
+            (0, -1): {  # Left
+                -1: (1, 0),  # Rotate left to Down
+                1: (-1, 0),  # Rotate right to Up
             },
-            (-1, 0): { # Up
+            (-1, 0): {  # Up
                 -1: (0, -1),  # Rotate left to Left
-                1: (0, 1),    # Rotate right to Right
-            }
+                1: (0, 1),  # Rotate right to Right
+            },
         }
 
         return action_rotations[action][direction]
-
 
     def get_transition_states_and_probs(
         self, state: Tuple[int, int], action: Tuple[int, int]
