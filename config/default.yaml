@@ -1,0 +1,25 @@
+# config.yaml
+
+size: [6, 6] # Maze size
+walls:  # List the coordinates of walls
+  - [0, 1]
+  - [1, 4]
+  - [4, 1]
+  - [4, 2]
+  - [4, 3]
+terminal_states: [] # List the coordinates of terminal states
+rewards:  # Define rewards for specific states
+  "[0, 0]": 1
+  "[0, 2]": 1
+  "[0, 5]": 1
+  "[1, 3]": 1
+  "[2, 4]": 1
+  "[3, 5]": 1
+  "[1, 1]": -1
+  "[1, 5]": -1
+  "[2, 2]": -1
+  "[3, 3]": -1
+  "[4, 4]": -1
+transition_prob: 0.8  # Probability of moving in the desired direction
+discount: 0.99  # Discount factor
+white_reward: -0.04  # Reward for each step

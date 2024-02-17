@@ -93,7 +93,11 @@ class Gridworld:
         if forward == state and left == state and right == state:
             return [(state, 1.0)]
 
-        transitions = [(forward, self.transition_prob), (left, 0.1), (right, 0.1)]
+        transitions = [
+            (forward, self.transition_prob),
+            (left, (1 - self.transition_prob) / 2),
+            (right, (1 - self.transition_prob) / 2),
+        ]
 
         # Removing duplicates if any (e.g., when left and right result in the same state)
         results = {}

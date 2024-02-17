@@ -2,26 +2,30 @@ from src.gridworld import Gridworld
 from src.value_iteration import value_iteration
 from src.policy_iteration import policy_iteration
 from src.visualization import visualize_gridworld
+import yaml
 
 
 def main():
-    size = (6, 6)
-    walls = [(0, 1), (1, 4), (4, 1), (4, 2), (4, 3)]
-    terminal_states = []
+    # Load the configuration from the YAML file
+    with open("config/default.yaml", "r") as file:
+        config = yaml.safe_load(file)
+    size = config["size"]
+    walls = config["walls"]
+    terminal_states = config["terminal_states"]
     rewards = {
-        (0, 0): 1,
-        (0, 2): 1,
-        (0, 5): 1,
-        (1, 3): 1,
-        (2, 4): 1,
-        (3, 5): 1,
-        (1, 1): -1,
-        (1, 5): -1,
-        (2, 2): -1,
-        (3, 3): -1,
-        (4, 4): -1,
+        tuple(map(int, key.strip("[]").split(","))): value
+        for key, value in config["rewards"].items()
     }
-    env = Gridworld(size, walls, terminal_states, rewards)
+
+    env = Gridworld(
+        size,
+        walls,
+        terminal_states,
+        rewards,
+        config["transition_prob"],
+        config["discount"],
+        config["white_reward"],
+    )
 
     V_value_iter = value_iteration(env)
     print("Value Iteration:")
