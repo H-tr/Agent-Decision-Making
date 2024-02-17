@@ -11,6 +11,7 @@ class Gridworld:
         rewards: Dict[Tuple[int, int], float],
         transition_prob: float = 0.8,
         discount: float = 0.99,
+        white_reward: float = -0.04,
     ):
         """
         Initialize the Gridworld environment.
@@ -29,6 +30,7 @@ class Gridworld:
         self.rewards = rewards
         self.transition_prob = transition_prob
         self.discount = discount
+        self.white_reward = white_reward
         self.actions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # Right, Down, Left, Up
 
     def is_terminal(self, state: Tuple[int, int]) -> bool:
@@ -42,15 +44,19 @@ class Gridworld:
         - bool - True if the state is terminal, False otherwise.
         """
         return state in self.terminal_states
-    
+
     @property
     def get_random_output(self):
         return random.choices(
-            ['intend', 'right', 'left'],
-            weights=[self.transition_prob, (1-self.transition_prob)/2, (1-self.transition_prob)/2],
-            k=1
+            ["intend", "right", "left"],
+            weights=[
+                self.transition_prob,
+                (1 - self.transition_prob) / 2,
+                (1 - self.transition_prob) / 2,
+            ],
+            k=1,
         )[0]
-    
+
     def go_intended(self, action: Tuple[int, int]) -> Tuple[int, int]:
         """
         Get the coordinates of the next state if the action is successful.
@@ -62,7 +68,7 @@ class Gridworld:
         - Tuple[int, int] - The coordinates of the next state.
         """
         return action
-    
+
     def go_right(self, action: Tuple[int, int]) -> Tuple[int, int]:
         """
         Get the coordinates of the next state if the action is to the right.
@@ -81,7 +87,7 @@ class Gridworld:
             return (-1, 0)
         elif action == (-1, 0):
             return (0, 1)
-        
+
     def go_left(self, action: Tuple[int, int]) -> Tuple[int, int]:
         """
         Get the coordinates of the next state if the action is to the left.
@@ -115,11 +121,11 @@ class Gridworld:
         - Tuple[int, int] - The coordinates of the next state.
         """
         outcome = self.get_random_output
-        if outcome == 'intend':
+        if outcome == "intend":
             real_action = self.go_intended(action)
-        elif outcome == 'right':
+        elif outcome == "right":
             real_action = self.go_right(action)
-        elif outcome == 'left':
+        elif outcome == "left":
             real_action = self.go_left(action)
         next_state = (state[0] + real_action[0], state[1] + real_action[1])
         if (
@@ -149,4 +155,4 @@ class Gridworld:
         Returns:
         - float - The reward for the transition.
         """
-        return self.rewards.get(next_state, 0)
+        return self.rewards.get(next_state, self.white_reward)

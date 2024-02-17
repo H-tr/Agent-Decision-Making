@@ -14,7 +14,7 @@ def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
     Returns:
     - np.ndarray - The utilities of all states after convergence.
     """
-    writer = SummaryWriter('runs/maze_solver_experiment')
+    writer = SummaryWriter("runs/maze_solver_experiment")
     V = np.zeros(env.size)
     iteration = 0
     while True:
@@ -32,9 +32,9 @@ def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
                     ]
                 )
                 delta = max(delta, abs(v - V[i, j]))
-                
-        writer.add_scalar('Value Iteration Delta', delta, iteration)
-        writer.add_scalar('Value Iteration Utilities', V.mean(), iteration)
+
+        writer.add_scalar("Value Iteration Delta", delta, iteration)
+        writer.add_scalar("Value Iteration Utilities", V.mean(), iteration)
         iteration += 1
         if delta < threshold:
             break

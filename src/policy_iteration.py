@@ -33,17 +33,18 @@ def policy_iteration(
                     if (i, j) in env.walls or (i, j) in env.terminal_states:
                         continue
                     v = V[i, j]
+                    next_state = env.get_next_state((i, j), policy[i, j])
                     V[i, j] = (
                         env.get_reward(
                             (i, j),
                             policy[i, j],
-                            env.get_next_state((i, j), policy[i, j]),
+                            next_state,
                         )
-                        + env.discount * V[env.get_next_state((i, j), policy[i, j])]
+                        + env.discount * V[next_state]
                     )
                     delta = max(delta, abs(v - V[i, j]))
-                    
-            writer.add_scalar('Policy Iteration Delta', delta, iteration)
+
+            writer.add_scalar("Policy Iteration Delta", delta, iteration)
             if delta < threshold:
                 break
 
@@ -63,8 +64,8 @@ def policy_iteration(
                 )
                 if old_action != policy[i, j]:
                     policy_stable = False
-                    
-        writer.add_scalar('Policy Iteration Utilities', V.mean(), iteration)
+
+        writer.add_scalar("Policy Iteration Utilities", V.mean(), iteration)
         if policy_stable:
             break
         iteration += 1
