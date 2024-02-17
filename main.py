@@ -1,6 +1,7 @@
 from src.gridworld import Gridworld
 from src.value_iteration import value_iteration
 from src.policy_iteration import policy_iteration
+from src.visualization import visualize_gridworld
 
 
 def main():
@@ -30,6 +31,9 @@ def main():
     print("Policy Iteration:")
     print("Policy:", policy)
     print("Utilities:", V_policy_iter)
+
+    # Visualize the gridworld with the optimal policy
+    visualize_gridworld(size, walls, rewards, policy)
 
 
 if __name__ == "__main__":
