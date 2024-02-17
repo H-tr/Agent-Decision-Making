@@ -1,5 +1,7 @@
 # Maze Solver: Intelligent Agents Assignment 1
 
+[![Python Tests](https://github.com/H-tr/Agent-Decision-Making/actions/workflows/python-test.yml/badge.svg?branch=BRANCH)](https://github.com/H-tr/Agent-Decision-Making/actions/workflows/python-test.yml)
+
 ![logo](asset/logo.webp)
 
 ## Overview
