@@ -97,8 +97,6 @@ def value_iteration(
             if delta < threshold:
                 CONSOLE.print("Value iteration converged", style="bold green")
             else:
-                CONSOLE.print(
-                    "Value iteration did not converge", style="bold red"
-                )
+                CONSOLE.print("Value iteration did not converge", style="bold red")
             break
     return V, log

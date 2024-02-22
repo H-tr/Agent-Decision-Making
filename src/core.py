@@ -7,7 +7,9 @@ import yaml
 from src.utils import CONSOLE
 
 
-def solve_maze(config_file: str) -> Tuple[List[Dict[int, float]], List[Dict[int, float]]]:
+def solve_maze(
+    config_file: str,
+) -> Tuple[List[Dict[int, float]], List[Dict[int, float]]]:
     # Load the configuration from the YAML file
     with open(config_file, "r") as file:
         config = yaml.safe_load(file)
@@ -60,5 +62,5 @@ def solve_maze(config_file: str) -> Tuple[List[Dict[int, float]], List[Dict[int,
     visualizer.visualize_utilities(V_policy_iter)
 
     display_convergence([policy_iteration_log], ["Policy Iteration"])
-    
+
     return value_iteration_log, policy_iteration_log
