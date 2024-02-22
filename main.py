@@ -1,7 +1,7 @@
 from src.gridworld import Gridworld
 from src.value_iteration import value_iteration, get_policy
 from src.policy_iteration import policy_iteration
-from src.visualization import Visualizer
+from src.visualization import Visualizer, display_convergence
 import yaml
 
 
@@ -45,6 +45,8 @@ def main():
     visualizer.visualize_policy(policy)
     visualizer.visualize_utilities(V_value_iter)
 
+    display_convergence([value_iteration_log], ["Value Iteration"])
+
     # Policy iteration
     policy, V_policy_iter, policy_iteration_log = policy_iteration(env)
     print("Policy Iteration:")
@@ -54,6 +56,8 @@ def main():
     # Visualize the gridworld with the optimal policy
     visualizer.visualize_policy(policy)
     visualizer.visualize_utilities(V_policy_iter)
+
+    display_convergence([policy_iteration_log], ["Policy Iteration"])
 
 
 if __name__ == "__main__":

@@ -140,3 +140,15 @@ class Visualizer:
 
         ax.imshow(self.grid_color, interpolation="nearest")
         plt.show()
+
+
+def display_convergence(log_list: list[list[dict[int, float]]], name_list: list[str]):
+    """Take arbitrary number of logs and visualize the convergence of the algorithm"""
+    fig, ax = plt.subplots()
+    for i, log in enumerate(log_list):
+        ax.plot([list(d.values())[0] for d in log], label=name_list[i])
+    ax.set_xlabel("Iterations")
+    ax.set_ylabel("Utility Value")
+    ax.set_yscale("linear")
+    ax.legend()
+    plt.show()
