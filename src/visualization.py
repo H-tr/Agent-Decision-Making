@@ -1,3 +1,4 @@
+from typing import Dict, List
 import matplotlib.pyplot as plt
 from src.gridworld import Gridworld
 import numpy as np
@@ -142,7 +143,7 @@ class Visualizer:
         plt.show()
 
 
-def display_convergence(log_list: list[list[dict[int, float]]], name_list: list[str]):
+def display_convergence(log_list: List[List[Dict[int, float]]], name_list: List[str]):
     """Take arbitrary number of logs and visualize the convergence of the algorithm"""
     fig, ax = plt.subplots()
     for i, log in enumerate(log_list):

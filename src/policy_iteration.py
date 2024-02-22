@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Dict, List, Tuple
 import numpy as np
 from .gridworld import Gridworld
 from tensorboardX import SummaryWriter
@@ -6,13 +6,14 @@ from tensorboardX import SummaryWriter
 
 def policy_iteration(
     env: Gridworld, threshold: float = 0.001, min_iteration: int = 50
-) -> Tuple[np.ndarray, np.ndarray, list[dict[int, float]]]:
+) -> Tuple[np.ndarray, np.ndarray, List[Dict[int, float]]]:
     """
     Perform policy iteration to find the optimal policy and utilities.
 
     Parameters:
     - env: Gridworld - The gridworld environment.
     - threshold: float (default 0.001) - The threshold for convergence.
+    - min_iteration: int (default 50) - The minimum number of iterations to perform.
 
     Returns:
     - Tuple[np.ndarray, np.ndarray, list[dict[int, float]]] - The optimal policy, utilities, and the log of utilities.

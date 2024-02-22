@@ -38,7 +38,7 @@ The arrows represent the direction of the optimal action to take from each non-w
 
 The results denote both could converge to the same state.
 
-For more details please check the [report](report/asignment_1.pdf)
+For more details please check the [report](report/Tianrun_Hu_G1992471N.pdf)
 
 ## Getting Started
 
