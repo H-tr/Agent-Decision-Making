@@ -2,3 +2,4 @@ numpy
 tensorboardX
 matplotlib
 pyyaml
+rich

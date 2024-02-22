@@ -2,6 +2,7 @@ from typing import Dict, List, Tuple
 import numpy as np
 from .gridworld import Gridworld
 from tensorboardX import SummaryWriter
+from src.utils import CONSOLE
 
 
 def policy_iteration(
@@ -84,7 +85,12 @@ def policy_iteration(
 
         writer.add_scalar("Policy Iteration Utilities", V.mean(), iteration)
         log.append({iteration: V.mean()})
-        if policy_stable and iteration > min_iteration:
+        if iteration == min_iteration:
+            if policy_stable:
+                # console print green
+                CONSOLE.print("Policy iteration converged!", style="bold green")
+            else:
+                CONSOLE.print("Policy iteration did not converge!", style="bold red")
             break
         iteration += 1
     return policy, V, log

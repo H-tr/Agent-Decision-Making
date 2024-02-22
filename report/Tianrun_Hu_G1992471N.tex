@@ -22,9 +22,7 @@
 
 where $V_k(s)$ is the utility of state $s$ at iteration $k$, $max_a$ denotes the maximum value over all possible actions $a$, $P(s' | s, a) $ is the probability of transitioning to state $s'$ from state $s$ to state $s'$ via action $a$, $\gamma$ is the discount factor which prioritizes immediate rewards over distant rewards, $V_k(s')$ is the utility of state $s'$ at iteration $k$.
 
-Keep tracking the maximum change in utility values $\delta$ until it falls below a specified threshold, indicating convergence.
-
-\paragraph{Termination:} The iteration loop continues until $\delta$ is less that the threshold, at which point it is assumed the utility values have converged to their optimal values.
+Run for 50 iterations, and keep tracking the maximum change in utility values $\delta$. If it falls below a specified threshold, indicating convergence.
 
 \paragraph{Plotting:} Plot the values and policies calculated from the previous algorithm.
 
@@ -85,8 +83,6 @@ Policy Improvement:
 \[\pi ' (s) = arg max_a \sum_{s', r} P(s', r|s, a)[r + \gamma V^\pi (s')] \]
 
 where $pi '(s)$ is the updated action for state $s$ under the improved policy $\pi '$, $argmax_a$ denotes the action that maximizes the expected utility.
-
-\paragraph{Termination:} The algorithm terminates when the policy is stable (The maximum change in utility values across all states $\delta$ is below a threshold, indicating that the utilities have converged).
 
 \subsection{Plot of Optimal Policy}
 

@@ -2,6 +2,7 @@ from typing import Dict, List, Tuple
 import numpy as np
 from .gridworld import Gridworld
 from tensorboardX import SummaryWriter
+from src.utils import CONSOLE
 
 
 def get_policy(env: Gridworld, utilities: np.ndarray) -> np.ndarray:
@@ -92,6 +93,12 @@ def value_iteration(
         writer.add_scalar("Value Iteration Utilities", V.mean(), iteration)
         log.append({iteration: V.mean()})
         iteration += 1
-        if delta < threshold and iteration > min_iteration:
+        if iteration == min_iteration:
+            if delta < threshold:
+                CONSOLE.print("Value iteration converged", style="bold green")
+            else:
+                CONSOLE.print(
+                    "Value iteration did not converge", style="bold red"
+                )
             break
     return V, log

@@ -1,7 +1,10 @@
+from rich.console import Console
+CONSOLE = Console()
+
 def generate_config(maze_size: int, save_path: str):
     import yaml
     config = {
-        "size": 4,
+        "size": [maze_size, maze_size],
         "walls": [[1, 1]],
         "terminal_states": [[0, 0], [3, 3]],
         "rewards": {

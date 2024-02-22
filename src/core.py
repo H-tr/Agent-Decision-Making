@@ -4,6 +4,7 @@ from src.value_iteration import value_iteration, get_policy
 from src.policy_iteration import policy_iteration
 from src.visualization import Visualizer, display_convergence
 import yaml
+from src.utils import CONSOLE
 
 
 def solve_maze(config_file: str) -> Tuple[List[Dict[int, float]], List[Dict[int, float]]]:
@@ -34,12 +35,12 @@ def solve_maze(config_file: str) -> Tuple[List[Dict[int, float]], List[Dict[int,
 
     # Value iteration
     V_value_iter, value_iteration_log = value_iteration(env)
-    print("Value Iteration:")
-    print(V_value_iter)
+    CONSOLE.print("Value Iteration:")
+    CONSOLE.print(V_value_iter)
 
     # Get the optimal policy
     policy = get_policy(env, V_value_iter)
-    print("Policy:", policy)
+    CONSOLE.print("Policy:", policy)
 
     # Visualize the gridworld with the optimal policy
     visualizer.visualize_board()
@@ -50,9 +51,9 @@ def solve_maze(config_file: str) -> Tuple[List[Dict[int, float]], List[Dict[int,
 
     # Policy iteration
     policy, V_policy_iter, policy_iteration_log = policy_iteration(env)
-    print("Policy Iteration:")
-    print("Policy:", policy)
-    print("Utilities:", V_policy_iter)
+    CONSOLE.print("Policy Iteration:")
+    CONSOLE.print("Policy:", policy)
+    CONSOLE.print("Utilities:", V_policy_iter)
 
     # Visualize the gridworld with the optimal policy
     visualizer.visualize_policy(policy)
