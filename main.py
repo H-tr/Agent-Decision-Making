@@ -1,7 +1,7 @@
 from src.gridworld import Gridworld
 from src.value_iteration import value_iteration, get_policy
 from src.policy_iteration import policy_iteration
-from src.visualization import visualize_gridworld, visualize_utilities
+from src.visualization import Visualizer
 import yaml
 
 
@@ -29,6 +29,8 @@ def main():
         config["white_reward"],
     )
 
+    visualizer = Visualizer(env=env)
+
     # Value iteration
     V_value_iter = value_iteration(env)
     print("Value Iteration:")
@@ -39,8 +41,9 @@ def main():
     print("Policy:", policy)
 
     # Visualize the gridworld with the optimal policy
-    visualize_gridworld(size, walls, rewards, policy)
-    visualize_utilities(size, walls, rewards, V_value_iter)
+    visualizer.visualize_board()
+    visualizer.visualize_policy(policy)
+    visualizer.visualize_utilities(V_value_iter)
 
     # Policy iteration
     policy, V_policy_iter = policy_iteration(env)
@@ -49,8 +52,8 @@ def main():
     print("Utilities:", V_policy_iter)
 
     # Visualize the gridworld with the optimal policy
-    visualize_gridworld(size, walls, rewards, policy)
-    visualize_utilities(size, walls, rewards, V_policy_iter)
+    visualizer.visualize_policy(policy)
+    visualizer.visualize_utilities(V_policy_iter)
 
 
 if __name__ == "__main__":
