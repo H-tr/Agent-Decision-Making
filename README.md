@@ -22,7 +22,17 @@ The original maze is set up with walls, positive rewards, and negative rewards a
 
 After running the maze solver algorithm, the optimized policy indicating the best actions at each state is visualized below:
 
-![Optimized Policy](asset/optimization_policy.png)
+Value iteration policy:
+![Value Iteration Policy](asset/value_iteration_policy.png)
+
+Value iteration utility:
+![Value Iteration Utility](asset/value_iteration_utility.png)
+
+Policy iteration policy:
+![Policy Iteration Policy](asset/policy_iteration_policy.png)
+
+Policy iteration utility:
+![Policy Iteration Utility](asset/policy_iteration_utility.png)
 
 The arrows represent the direction of the optimal action to take from each non-wall grid cell. Green cells indicate positive rewards, orange cells indicate negative rewards, and gray cells represent walls. The optimized policy provides a guide for an agent to maximize rewards and reach the goal state efficiently.
 

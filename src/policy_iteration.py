@@ -18,6 +18,7 @@ def policy_iteration(
     - Tuple[np.ndarray, np.ndarray] - A tuple containing the optimal policy and the utilities of all states.
     """
     writer = SummaryWriter("runs/maze_solver_experiment")
+    
     policy = np.empty(env.size, dtype=object)
     for i in range(env.size[0]):
         for j in range(env.size[1]):
