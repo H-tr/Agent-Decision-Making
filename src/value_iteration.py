@@ -14,7 +14,8 @@ def get_policy(env: Gridworld, utilities: np.ndarray) -> np.ndarray:
     Returns:
     - np.ndarray - The optimal policy.
     """
-    policy = np.zeros(env.size, dtype=int)
+    policy = np.zeros(env.size, dtype=object)
+    actions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # Right, Down, Left, Up
     for i in range(env.size[0]):
         for j in range(env.size[1]):
             if (
@@ -36,7 +37,7 @@ def get_policy(env: Gridworld, utilities: np.ndarray) -> np.ndarray:
                 )
                 for action in env.actions
             ]
-            policy[i, j] = np.argmax(q_values)
+            policy[i, j] = actions[np.argmax(q_values)]
     return policy
 
 
