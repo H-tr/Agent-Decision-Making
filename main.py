@@ -37,10 +37,10 @@ def main():
     # Get the optimal policy
     policy = get_policy(env, V_value_iter)
     print("Policy:", policy)
-    
+
     # Visualize the gridworld with the optimal policy
     visualize_gridworld(size, walls, rewards, policy)
-    
+
     # Policy iteration
     policy, V_policy_iter = policy_iteration(env)
     print("Policy Iteration:")

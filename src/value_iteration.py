@@ -2,6 +2,7 @@ import numpy as np
 from .gridworld import Gridworld
 from tensorboardX import SummaryWriter
 
+
 def get_policy(env: Gridworld, utilities: np.ndarray) -> np.ndarray:
     """
     Get the optimal policy based on the utilities.
@@ -37,6 +38,7 @@ def get_policy(env: Gridworld, utilities: np.ndarray) -> np.ndarray:
             ]
             policy[i, j] = np.argmax(q_values)
     return policy
+
 
 def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
     """
