@@ -4,10 +4,9 @@ from src.policy_iteration import policy_iteration
 from src.visualization import Visualizer, display_convergence
 import yaml
 
-
 def main():
     # Load the configuration from the YAML file
-    with open("config/default.yaml", "r") as file:
+    with open("config/task_1.yaml", "r") as file:
         config = yaml.safe_load(file)
     size = config["size"]
     walls = config["walls"]

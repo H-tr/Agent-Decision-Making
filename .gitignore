@@ -162,3 +162,5 @@ cython_debug/
 runs
 .vscode
 .ruff_cache
+report/asignment_1.aux
+report/asignment_1.log
