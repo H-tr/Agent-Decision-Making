@@ -41,7 +41,9 @@ def get_policy(env: Gridworld, utilities: np.ndarray) -> np.ndarray:
     return policy
 
 
-def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
+def value_iteration(
+    env: Gridworld, threshold: float = 0.001, min_iteration: int = 50
+) -> np.ndarray:
     """
     Perform value iteration to find the optimal utilities.
 
@@ -86,6 +88,6 @@ def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
         writer.add_scalar("Value Iteration Delta", delta, iteration)
         writer.add_scalar("Value Iteration Utilities", V.mean(), iteration)
         iteration += 1
-        if delta < threshold:
+        if delta < threshold and iteration > min_iteration:
             break
     return V

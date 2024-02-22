@@ -5,7 +5,7 @@ from tensorboardX import SummaryWriter
 
 
 def policy_iteration(
-    env: Gridworld, threshold: float = 0.001
+    env: Gridworld, threshold: float = 0.001, min_iteration: int = 50
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
     Perform policy iteration to find the optimal policy and utilities.
@@ -80,7 +80,7 @@ def policy_iteration(
                     policy_stable = False
 
         writer.add_scalar("Policy Iteration Utilities", V.mean(), iteration)
-        if policy_stable:
+        if policy_stable and iteration > min_iteration:
             break
         iteration += 1
     return policy, V
