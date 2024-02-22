@@ -70,8 +70,6 @@ python main.py
 python -m unittest tests.test_maze_solver
 ```
 
-## Project Structure
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests or open issues to improve the project.

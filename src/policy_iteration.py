@@ -30,7 +30,11 @@ def policy_iteration(
             delta = 0
             for i in range(env.size[0]):
                 for j in range(env.size[1]):
-                    if (i, j) in env.walls or (i, j) in env.terminal_states:
+                    if (
+                        (i, j) in env.walls
+                        or (i, j) in env.terminal_states
+                        or (i, j) in env.rewards.keys()
+                    ):
                         continue
                     v = V[i, j]
                     action = policy[i, j]

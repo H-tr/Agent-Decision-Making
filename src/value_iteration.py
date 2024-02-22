@@ -2,6 +2,41 @@ import numpy as np
 from .gridworld import Gridworld
 from tensorboardX import SummaryWriter
 
+def get_policy(env: Gridworld, utilities: np.ndarray) -> np.ndarray:
+    """
+    Get the optimal policy based on the utilities.
+
+    Parameters:
+    - env: Gridworld - The gridworld environment.
+    - utilities: np.ndarray - The utilities of all states.
+
+    Returns:
+    - np.ndarray - The optimal policy.
+    """
+    policy = np.zeros(env.size, dtype=int)
+    for i in range(env.size[0]):
+        for j in range(env.size[1]):
+            if (
+                (i, j) in env.walls
+                or (i, j) in env.terminal_states
+                or (i, j) in env.rewards.keys()
+            ):
+                continue
+            q_values = [
+                sum(
+                    prob
+                    * (
+                        env.get_reward((i, j), action, next_state)
+                        + env.discount * utilities[next_state]
+                    )
+                    for next_state, prob in env.get_transition_states_and_probs(
+                        (i, j), action
+                    )
+                )
+                for action in env.actions
+            ]
+            policy[i, j] = np.argmax(q_values)
+    return policy
 
 def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
     """
@@ -21,7 +56,11 @@ def value_iteration(env: Gridworld, threshold: float = 0.001) -> np.ndarray:
         delta = 0
         for i in range(env.size[0]):
             for j in range(env.size[1]):
-                if (i, j) in env.walls or (i, j) in env.terminal_states:
+                if (
+                    (i, j) in env.walls
+                    or (i, j) in env.terminal_states
+                    or (i, j) in env.rewards.keys()
+                ):
                     continue
                 v = V[i, j]
                 V[i, j] = max(

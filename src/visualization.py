@@ -30,6 +30,18 @@ def visualize_gridworld(size, walls, rewards, policy):
         for x in range(size[1]):
             if (y, x) in walls:
                 continue  # Skip walls
+            if (y, x) in rewards:
+                # Write the reward value, color is black, bold
+                ax.text(
+                    x,
+                    y,
+                    str(rewards[(y, x)]),
+                    color="black",
+                    ha="center",
+                    va="center",
+                    weight="bold",
+                )
+                continue
             action = policy[y, x]
             dx, dy = 0, 0
             if action == (0, 1):  # Right
