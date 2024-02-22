@@ -13,12 +13,12 @@ class TestMazeSolver(unittest.TestCase):
         self.env = Gridworld(self.size, self.walls, self.terminal_states, self.rewards)
 
     def test_value_iteration(self):
-        V = value_iteration(self.env)
+        V, _ = value_iteration(self.env)
         self.assertEqual(V.shape, self.size)
         # Add more assertions to check the correctness of the utilities
 
     def test_policy_iteration(self):
-        policy, V = policy_iteration(self.env)
+        policy, V, _ = policy_iteration(self.env)
         self.assertEqual(policy.shape, self.size)
         self.assertEqual(V.shape, self.size)
         # Add more assertions to check the correctness of the policy and utilities
