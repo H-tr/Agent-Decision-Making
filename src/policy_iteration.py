@@ -1,12 +1,11 @@
 import numpy as np
 from .gridworld import Gridworld
-from typing import Tuple
 from tensorboardX import SummaryWriter
 
 
 def policy_iteration(
     env: Gridworld, threshold: float = 0.001, min_iteration: int = 50
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray, list[dict[int, float]]]:
     """
     Perform policy iteration to find the optimal policy and utilities.
 
@@ -15,9 +14,10 @@ def policy_iteration(
     - threshold: float (default 0.001) - The threshold for convergence.
 
     Returns:
-    - Tuple[np.ndarray, np.ndarray] - A tuple containing the optimal policy and the utilities of all states.
+    - Tuple[np.ndarray, np.ndarray, list[dict[int, float]]] - The optimal policy, utilities, and the log of utilities.
     """
     writer = SummaryWriter("runs/maze_solver_experiment")
+    log = []
 
     policy = np.empty(env.size, dtype=object)
     for i in range(env.size[0]):
@@ -81,7 +81,8 @@ def policy_iteration(
                     policy_stable = False
 
         writer.add_scalar("Policy Iteration Utilities", V.mean(), iteration)
+        log.append({iteration: V.mean()})
         if policy_stable and iteration > min_iteration:
             break
         iteration += 1
-    return policy, V
+    return policy, V, log

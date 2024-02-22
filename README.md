@@ -36,6 +36,8 @@ Policy                     |  Utility
 
 The arrows represent the direction of the optimal action to take from each non-wall grid cell. Green cells indicate positive rewards, orange cells indicate negative rewards, and gray cells represent walls. The optimized policy provides a guide for an agent to maximize rewards and reach the goal state efficiently.
 
+The results denote both could converge to the same state.
+
 ## Getting Started
 
 ### Installation
@@ -79,10 +81,6 @@ python main.py
 ```bash
 python -m unittest tests.test_maze_solver
 ```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit pull requests or open issues to improve the project.
 
 ## License
 

@@ -32,7 +32,7 @@ def main():
     visualizer = Visualizer(env=env)
 
     # Value iteration
-    V_value_iter = value_iteration(env)
+    V_value_iter, value_iteration_log = value_iteration(env)
     print("Value Iteration:")
     print(V_value_iter)
 
@@ -46,7 +46,7 @@ def main():
     visualizer.visualize_utilities(V_value_iter)
 
     # Policy iteration
-    policy, V_policy_iter = policy_iteration(env)
+    policy, V_policy_iter, policy_iteration_log = policy_iteration(env)
     print("Policy Iteration:")
     print("Policy:", policy)
     print("Utilities:", V_policy_iter)

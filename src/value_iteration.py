@@ -43,7 +43,7 @@ def get_policy(env: Gridworld, utilities: np.ndarray) -> np.ndarray:
 
 def value_iteration(
     env: Gridworld, threshold: float = 0.001, min_iteration: int = 50
-) -> np.ndarray:
+) -> tuple[np.ndarray, list[dict[int, float]]]:
     """
     Perform value iteration to find the optimal utilities.
 
@@ -52,10 +52,11 @@ def value_iteration(
     - threshold: float (default 0.001) - The threshold for convergence.
 
     Returns:
-    - np.ndarray - The utilities of all states after convergence.
+    - Tuple[np.ndarray, list[dict[int, float]]] - The optimal utilities and the log of utilities.
     """
     writer = SummaryWriter("runs/maze_solver_experiment")
     V = np.zeros(env.size)
+    log = []
     iteration = 0
     while True:
         delta = 0
@@ -87,7 +88,8 @@ def value_iteration(
 
         writer.add_scalar("Value Iteration Delta", delta, iteration)
         writer.add_scalar("Value Iteration Utilities", V.mean(), iteration)
+        log.append({iteration: V.mean()})
         iteration += 1
         if delta < threshold and iteration > min_iteration:
             break
-    return V
+    return V, log

@@ -47,6 +47,21 @@ class Visualizer:
 
     def visualize_board(self):
         ax = self.get_fig()
+        for y in range(self.size[0]):
+            for x in range(self.size[1]):
+                if (y, x) in self.walls:
+                    continue
+                if (y, x) in self.rewards:
+                    # Write the reward value, color is black, bold
+                    ax.text(
+                        x,
+                        y,
+                        str(self.rewards[(y, x)]),
+                        color="black",
+                        ha="center",
+                        va="center",
+                        weight="bold",
+                    )
         # Display the grid with colors
         ax.imshow(self.grid_color, interpolation="nearest")
 
