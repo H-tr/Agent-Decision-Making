@@ -60,29 +60,35 @@ For more details please check the [report](report/Tianrun_Hu_G1992471N.pdf)
 
 1. Create the python environment
 
-```bash
-conda create -n maze_solver python=3.10 -y
-conda activate maze_solver
-pip install -r requirements.txt
-```
+   ```bash
+   conda create -n maze_solver python=3.10 -y
+   conda activate maze_solver
+   pip install -r requirements.txt
+   ```
 
-1. Run the main logic
+2. Run the main logic
 
-To monitor the iteration progress
+   To monitor the iteration progress
 
-```bash
-tensorboard --logdir=runs
-```
+   ```bash
+   tensorboard --logdir=runs
+   ```
 
-```bash
-python main.py
-```
+   ```bash
+   python main.py
+   ```
 
-1. Test
+   For part 2:
 
-```bash
-python -m unittest tests.test_maze_solver
-```
+   ```bash
+   python main.py --assignment part_2
+   ```
+
+3. Test
+
+   ```bash
+   python -m unittest tests.test_maze_solver
+   ```
 
 ## License
 

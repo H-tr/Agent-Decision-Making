@@ -16,7 +16,7 @@ def main():
     argparser.add_argument(
         "--no_of_solve",
         type=int,
-        default=4,
+        default=6,
         help="How many times to solve the increased size maze.",
     )
     argparser.add_argument(
